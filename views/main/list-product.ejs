@@ -1,0 +1,347 @@
+<h2>Danh Sách Sản Phẩm</h2>
+
+<div class="container-fluid">
+	<div class="table-responsive">
+		<div class="table-wrapper">
+			<div class="table-title">
+				<div class="row">
+					<div class="col-sm-6">
+						<h2>Quản Lý <b> Sản Phẩm</b></h2>
+					</div>
+					<div class="col-sm-6">
+						<a href="#addEmployeeModal" onclick="showModalAddProduct()" class="btn btn-success"
+							data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm Sản Phẩm</span></a>
+					</div>
+				</div>
+			</div>
+			<table class="table table-striped table-hover table-product">
+				<thead>
+					<tr>
+						<!-- <th>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="selectAll">
+								<label for="selectAll"></label>
+							</span>
+						</th> -->
+						<th>Ảnh</th>
+						<th>Tên Sản Phẩm</th>
+						<th>Danh Mục</th>
+						<th>Giá</th>
+						<th>Xuất Xứ</th>
+						<th>Màu Sắc </th>
+						<th>Độ Dày</th>
+						<th>Giảm Giá</th>
+						<th>Mô Tả</th>
+						<th>Ngày Thêm Sản Phẩm</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<!-- <td>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox1" name="options[]" value="1">
+								<label for="checkbox1"></label>
+							</span>
+						</td> -->
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- <div class="clearfix">
+				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+				<ul class="pagination">
+					<li class="page-item disabled"><a href="#">Previous</a></li>
+					<li class="page-item"><a href="#" class="page-link">1</a></li>
+					<li class="page-item"><a href="#" class="page-link">2</a></li>
+					<li class="page-item active"><a href="#" class="page-link">3</a></li>
+					<li class="page-item"><a href="#" class="page-link">4</a></li>
+					<li class="page-item"><a href="#" class="page-link">5</a></li>
+					<li class="page-item"><a href="#" class="page-link">Next</a></li>
+				</ul>
+			</div> -->
+		</div>
+	</div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="addEmployeeModal" style="margin-top: 50px" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Thêm Sản Phẩm</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<form action="/admin/product/add-product" enctype="multipart/form-data" method="POST">
+
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Tên Sản Phẩm</label>
+						<input id="add-name-product" name="productName" type="text" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Tên Danh Mục</label>
+						<select id="add-category-product" name="categoryName"></select>
+					</div>
+
+					<div class="form-group">
+						<label>Giá</label>
+						<input id="add-price-product" name="price" type="number" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Xuất Xứ</label>
+						<input id="add-origin-product" name="origin" type="text" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Màu Sắc</label>
+						<input id="add-color-product" name="color" type="text" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Độ dày</label>
+						<input id="add-thickness-product" name="thickness" type="text" class="form-control" required>
+					</div>
+
+					<div class="form-group">
+						<label>Giảm Giá</label>
+						<input id="add-discount-product" name="discount" type="number" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Mô Tả</label>
+						<textarea id="add-describe-product" name="describe" class="form-control" required></textarea>
+					</div>
+					<div hidden class="form-group">
+						<label>Mô Tả</label>
+						<textarea id="add-date-product" name="dateCreate" class="form-control" required></textarea>
+					</div>
+
+					<div class="form-group">
+						<label>Ảnh</label>
+						<input id="add-image-product" name="multi-files" type='file' accept='image/*' multiple>
+						<div class="box-add-image">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-success" value="Upload">
+				</div>
+			</form>
+
+
+		</div>
+	</div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="editEmployeeModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form>
+				<div class="modal-header">
+					<h4 class="modal-title">Edit Employee</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Name</label>
+						<input type="text" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Email</label>
+						<input type="email" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Address</label>
+						<textarea class="form-control" required></textarea>
+					</div>
+					<div class="form-group">
+						<label>Phone</label>
+						<input type="text" class="form-control" required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-info" value="Save">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deleteProductModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form>
+				<div class="modal-header">
+					<h4 class="modal-title">Xóa Sản Phâm</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Anh Có Chắc Chắn Muốn Xóa Sản Phẩm Này Không</p>
+				</div>
+
+				<div>
+					<input hidden id="id-delect-product" type="text">
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" onclick="deleteCategory()" class="btn btn-danger" value="Delete">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+	let arrCategory = []
+	getAllCategory()
+	getAllCProduct()
+	function getAllCategory() {
+		$.ajax({
+			type: 'GET',
+			url: '/admin/category/get-all-category',
+			data: {},
+			success: function (data) {
+				arrCategory = data
+			},
+			error: function (err) {
+				console.log(err);
+			}
+		});
+	}
+	function getAllCProduct() {
+		$.ajax({
+			type: 'GET',
+			url: '/admin/product/get-all-product',
+			data: {},
+			success: function (data) {
+				$('.table-product tbody').empty()
+				for (let i = 0; i < data.length; i++) {
+					$('.table-product tbody').append(`
+					<tr>
+						<td><img src="/assets/images/product/${data[i].image[0]}" style="width:80px;height:80px"></td>
+						<td>${data[i].productName}</td>
+						<td>${data[i].categoryName}</td>
+						<td>${data[i].price}</td>
+						<td>${data[i].origin}</td>
+						<td>${data[i].color}</td>
+						<td>${data[i].thickness}</td>
+						<td>${data[i].discount}</td>
+						<td>${data[i].describe}</td>
+						<td>${data[i].dateCreate}</td>
+						<td>
+							<a href="#deleteProductModal" onclick="showModelDelete('${data[i]._id}')" class="delete" data-toggle="modal"><i class="material-icons"
+									data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+						</td>
+					</tr>
+                `)
+				}
+			},
+			error: function (err) {
+				console.log(err);
+			}
+		});
+	}
+	// <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
+	// 								data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+
+	function showModelDelete(id) {
+		$('#id-delect-product').val(id)
+	}
+	function deleteCategory() {
+		let id = $('#id-delect-product').val()
+		$.ajax({
+			type: 'GET',
+			url: '/admin/product/remove-product',
+			data: { id: id },
+			success: function (data) {
+				getAllCategory()
+			},
+			complete: function (data) {
+
+			},
+			error: function (err) {
+				console.log(err);
+			}
+		});
+	}
+
+
+	function showModalAddProduct() {
+		$('#add-category-product').empty()
+		for (let i = 0; i < arrCategory.length; i++) {
+			$('#add-category-product').append($('<option>', {
+				value: arrCategory[i].categoryName,
+				text: arrCategory[i].categoryName
+			}));
+		}
+		let dateCreate = new Date().toLocaleDateString();
+		$('#add-date-product').val(dateCreate)
+		document.getElementById("add-image-product").value = "";
+		$('.box-add-image').empty()
+	}
+
+
+	function addProduct() {
+		let arrayfileImage = $('#add-image-product').prop('files')
+		let productName = $('#add-name-product').val()
+		let categoryName = $('#add-category-product option:selected').text()
+		let price = $('#add-price-product').val()
+		let origin = $('#add-origin-product').val()
+		let color = $('#add-color-product').val()
+		let thickness = $('#add-thickness-product').val()
+		let discount = $('#add-discount-product').val()
+		let describe = $('#add-describe-product').val()
+		let arrImg = document.querySelectorAll('.box-add-image img')
+		let arrUploadImage = ['https://tamtrinhstone.com/wp-content/uploads/2020/02/da-hoa-cuong-op-cot.jpg']
+
+		// for (let i = 0; i < arrImg.length; i++) {
+		// 	arrUploadImage.push(arrImg[i].src)
+		// }
+		let dateCreate = new Date().toLocaleDateString();
+		$.ajax({
+			type: 'POST',
+			url: '/admin/product/add-product',
+			data: {
+				productName: productName,
+				categoryName: categoryName,
+				price: price,
+				origin: origin,
+				color: color,
+				thickness: thickness,
+				discount: discount,
+				describe: describe,
+				image: arrayfileImage,
+				dateCreate: dateCreate
+			},
+
+			success: function (data) {
+				console.log(data);
+				getAllCProduct()
+			},
+			complete: function (data) {
+				console.log(data);
+			},
+			error: function (err) {
+				console.log(err);
+			}
+		});
+	}
+	function readFile() {
+
+		if (this.files) {
+			arrUploadImage = []
+			for (let i = 0; i < this.files.length; i++) {
+
+				var FR = new FileReader();
+
+				FR.addEventListener("load", function (e) {
+					$('.box-add-image').append(`<img src="${e.target.result}" height="150">`)
+				});
+				FR.readAsDataURL(this.files[i]);
+			}
+		}
+	}
+	document.getElementById("add-image-product").addEventListener("change", readFile);
+
+
+
+</script>

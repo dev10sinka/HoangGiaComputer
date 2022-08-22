@@ -1,0 +1,198 @@
+<h2>Danh Sách Danh Mục</h2>
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Quản lý <b>Danh Mục</b></h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="#addCategoryModal" onclick="showModalAddCategory()" class="btn btn-success"
+                            data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm Danh Mục</span></a>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover talble-list-category">
+                <thead>
+                    <tr>
+                        <th>Tên Danh Mục</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="addCategoryModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm Danh Mục Sản Phẩm</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Tên Danh Mục</label>
+                        <input type="text" id="add-name-category" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input onclick="addCategory()" type="submit" class="btn btn-success" value="Add">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="editCategoryModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">Chỉnh Sửa Danh Mục Sản Phẩm</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Tên Danh Mục</label>
+                        <input type="text" id="edit-name-category" class="form-control" required>
+                    </div>
+                    <input hidden type="text" id="edit-id-category" class="form-control" required>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" onclick="editCategory()" class="btn btn-info" value="Save">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deleteCategoryModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">Xóa Danh Mục Sản Phẩm</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Anh Có Chắc Chắn Muốn Xóa Danh Mục Và toàn Bộ Sản Phẩm Liên Quan Tới Danh Mục Này Không ?</p>
+                </div>
+                <input hidden type="text" id="delete-id-category" class="form-control" required>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" onclick='deleteCategory()' class="btn btn-danger" value="Delete">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        getAllCategory()
+
+    })
+    function getAllCategory() {
+        $.ajax({
+            type: 'GET',
+            url: '/admin/category/get-all-category',
+            data: {},
+            success: function (data) {
+                console.log(data);
+                $('.talble-list-category tbody').empty()
+                for (let i = 0; i < data.length; i++) {
+                    $('.talble-list-category tbody').append(`
+                <tr>
+                        <td>${data[i].categoryName}</td>
+                        <td>
+                            <a href="#editCategoryModal" onclick="showEditCategory('${data[i]._id}','${data[i].categoryName}')" data-toggle="modal" class="edit"><i class="material-icons"
+                                   title="Edit">&#xE254;</i></a>
+                            <a href="#deleteCategoryModal"   onclick="showDeleteCategory('${data[i]._id}')" class="delete" data-toggle="modal"><i class="material-icons"
+                                    data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                `)
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+    function showModalAddCategory() {
+        $('#add-name-category').val('')
+    }
+    function addCategory() {
+        let categoryName = $('#add-name-category').val()
+        $.ajax({
+            type: 'POST',
+            url: '/admin/category/add-category',
+            data: { categoryName: categoryName },
+            success: function (data) {
+
+            },
+            complete: function (data) {
+                getAllCategory()
+                $('#addCategoryModal').modal('hide')
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+    function showEditCategory(id, categoryName) {
+        $('#edit-name-category').val(categoryName)
+        $('#edit-id-category').val(id)
+    }
+    function editCategory() {
+        let categoryNameEdit = $('#edit-name-category').val()
+        let id = $('#edit-id-category').val()
+        $.ajax({
+            type: 'GET',
+            url: '/admin/category/edit-category',
+            data: { categoryName: categoryNameEdit, id: id },
+            success: function (data) {
+                getAllCategory()
+            },
+            complete: function (data) {
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+    function showDeleteCategory(id) {
+        $('#delete-id-category').val(id)
+    }
+
+    function deleteCategory() {
+        let id = $('#delete-id-category').val()
+        console.log(id);
+        $.ajax({
+            type: 'GET',
+            url: '/admin/category/remove-category',
+            data: { id: id },
+            success: function (data) {
+                getAllCategory()
+            },
+            complete: function (data) {
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+</script>
