@@ -2,7 +2,7 @@ require('./models/database');
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const port = 8668
+const port = 3319
 const exphbs = require('express-handlebars');
 const bodyparser = require('body-parser');
 var cookieParser = require('cookie-parser')
